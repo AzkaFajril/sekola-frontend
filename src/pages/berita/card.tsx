@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import NewCard from './Newcard';
+import "../../index.css";
 
 interface NewsItem {
   _id: string;
@@ -57,8 +58,8 @@ const New: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-blue-600 text-white py-16">
-        <div className="max-w-6xl mx-auto px-4 text-center">
+      <div className=" text-black py-16">
+        <div className="max-w-6xl mx-auto px-4 text-center bg-white rounded-xl shadow-2xl mb-8">
           <h1 className="text-4xl font-bold mb-4">Berita Sekolah</h1>
           <p className="text-xl opacity-90">
             Berita terbaru dari sekolah kami
@@ -67,29 +68,14 @@ const New: React.FC = () => {
       </div>
 
       {/* News Grid */}
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        {limitedNews.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="text-gray-500 text-xl mb-4">Belum ada berita</div>
-            <p className="text-gray-400">Berita akan muncul di sini</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {limitedNews.map((item: NewsItem) => (
-              <NewCard
-                key={item._id}
-                _id={item._id}
-                title={item.title}
-                description={item.description}
-                content={item.content}
-                image={item.image}
-                author={item.author}
-                date={item.date}
-                createdAt={item.createdAt}
-              />
-            ))}
-          </div>
-        )}
+      <div className="max-w-6xl mx-auto px-2 sm:px-4 py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {limitedNews.map((item: NewsItem) => (
+            <div key={item._id} className="h-full">
+              <NewCard {...item} />
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Call to Action */}

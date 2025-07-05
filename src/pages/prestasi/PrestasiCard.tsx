@@ -23,8 +23,8 @@ const PrestasiCard: React.FC<PrestasiCardProps> = ({
 }) => {
   const formatDate = (dateString: string): string => {
     if (!dateString) return '';
-    const date = new Date(dateString);
-    return date.toLocaleDateString('id-ID', {
+    const dateObj = new Date(dateString);
+    return dateObj.toLocaleDateString('id-ID', {
       day: '2-digit',
       month: 'long',
       year: 'numeric',
@@ -32,17 +32,17 @@ const PrestasiCard: React.FC<PrestasiCardProps> = ({
   };
 
   return (
-    <div className="flex bg-white rounded-lg shadow-md overflow-hidden mb-6">
+    <div className="flex rounded-lg shadow-md overflow-hidden mb-6">
       {/* Bagian Gambar */}
-      <div className="w-1/3 bg-gray-200 flex items-center justify-center">
+      <div className="w-1/3 bg-gray-100 flex items-center justify-center min-h-[140px]">
         {image ? (
           <img
             src={image}
             alt={title}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-50 transition-transform duration-300 ease-in-out hover:scale-110"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-gray-400">
+          <div className="w-full h-36 flex items-center justify-center text-gray-400">
             Tidak ada gambar
           </div>
         )}

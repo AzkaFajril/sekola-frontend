@@ -1,0 +1,761 @@
+/*
+[Master Stylesheet]
+
+Template Name: Saasbox - Multipurpose HTML Template for Saas & Agency
+Template Author: Designing World
+Template Author URL: https://themeforest.net/user/designing-world
+Version: 2.0.0
+Last Updated: Sep 26, 2021
+*/
+/*
+[Table of Contents]
+    Google Fonts
+    Template Responsive
+    Template Variables
+    Basic Styles
+        + Reboot CSS
+        + Shortcodes CSS
+    Components Styles
+            + Preloader CSS
+            + Header CSS
+            + Hero CSS
+            + About CSS
+            + Tab CSS
+            + Service CSS
+            + Pricing CSS
+            + Feature CSS
+            + Team CSS
+            + Partner CSS
+            + Portfolio CSS
+            + Feedback CSS
+            + Video CSS
+            + Counter CSS
+            + Blog CSS
+            + Footer CSS
+            + CTA CSS
+            + Cookie CSS
+            + FAQ CSS
+            + Breadcrumb CSS
+            + Shop CSS
+            + Error CSS
+            + Register CSS
+            + Contact CSS
+            + Demo CSS
+
+[font-family]
+'Manrope', sans-serif;
+*/
+/* Import Fonts & All CSS Files */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
+/* Reboot CSS */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html {
+  font-family: "Manrope", sans-serif;
+  color: #8480ae;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Hero CSS */
+.background-animation {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 70%;
+  height: 100%;
+}
+.background-animation .item1 {
+  position: absolute;
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+  top: 15%;
+  left: 45%;
+  z-index: -1;
+  -webkit-animation: rotateAnimation linear 39s infinite;
+          animation: rotateAnimation linear 39s infinite;
+}
+.background-animation .item1::after {
+  position: absolute;
+  content: "\f417";
+  top: 10%;
+  left: 10%;
+  z-index: -1;
+  font-family: bootstrap-icons !important;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 1rem;
+}
+.background-animation .item2 {
+  position: absolute;
+  border-radius: 50%;
+  width: 240px;
+  height: 240px;
+  top: 50%;
+  left: 60%;
+  z-index: -1;
+  -webkit-animation: rotateAnimation linear 46s infinite;
+          animation: rotateAnimation linear 46s infinite;
+}
+.background-animation .item2::after {
+  position: absolute;
+  content: "\f588";
+  top: 10%;
+  left: 10%;
+  z-index: -1;
+  font-family: bootstrap-icons !important;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 1rem;
+}
+.background-animation .item3 {
+  position: absolute;
+  border-radius: 50%;
+  -webkit-animation: rotateAnimation linear 40s infinite;
+          animation: rotateAnimation linear 40s infinite;
+  width: 20%;
+  height: 20%;
+  left: 30%;
+  top: 50%;
+  z-index: -1;
+}
+.background-animation .item3::after {
+  position: absolute;
+  content: "";
+  z-index: -1;
+  font-family: bootstrap-icons !important;
+  content: "\f588";
+  font-size: 1rem;
+  color: #ffffff;
+}
+.background-animation .item4 {
+  position: absolute;
+  border-radius: 50%;
+  -webkit-animation: rotateAnimation linear 34s infinite;
+          animation: rotateAnimation linear 34s infinite;
+  width: 180px;
+  height: 180px;
+  left: 10%;
+  top: 10%;
+  z-index: -1;
+}
+.background-animation .item4::after {
+  font-size: 1rem;
+  position: absolute;
+  content: "\f28a";
+  font-family: bootstrap-icons !important;
+  top: 10%;
+  left: 10%;
+  z-index: -1;
+  color: rgba(255, 255, 255, 0.3);
+}
+.background-animation .item5 {
+  position: absolute;
+  border-radius: 50%;
+  -webkit-animation: rotateAnimation linear 37s infinite;
+          animation: rotateAnimation linear 37s infinite;
+  width: 15%;
+  height: 18%;
+  left: 7%;
+  top: 70%;
+  z-index: -1;
+}
+.background-animation .item5::after {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  content: "";
+  z-index: -1;
+  background-color: transparent;
+  border-radius: 6px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+@-webkit-keyframes rotateAnimation {
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateAnimation {
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+.background-shape .circle1 {
+  width: 1100px;
+  height: 1100px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  position: absolute;
+  z-index: -30;
+  top: -550px;
+  right: -550px;
+}
+@media only screen and (min-width:992px) {
+  .background-shape .circle1 {
+    width: 1500px;
+    height: 1500px;
+    top: -750px;
+    right: -750px;
+  }
+}
+@media only screen and (min-width:1400px) {
+  .background-shape .circle1 {
+    width: 2200px;
+    height: 2200px;
+    top: -1100px;
+    right: -1100px;
+  }
+}
+.background-shape .circle2 {
+  width: 850px;
+  height: 850px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  position: absolute;
+  z-index: -20;
+  top: -425px;
+  right: -425px;
+}
+@media only screen and (min-width:992px) {
+  .background-shape .circle2 {
+    width: 1200px;
+    height: 1200px;
+    top: -600px;
+    right: -600px;
+  }
+}
+@media only screen and (min-width:1400px) {
+  .background-shape .circle2 {
+    width: 1700px;
+    height: 1700px;
+    top: -850px;
+    right: -850px;
+  }
+}
+.background-shape .circle3 {
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  position: absolute;
+  z-index: -10;
+  top: -300px;
+  right: -300px;
+}
+@media only screen and (min-width:992px) {
+  .background-shape .circle3 {
+    width: 900px;
+    height: 900px;
+    top: -450px;
+    right: -450px;
+  }
+}
+@media only screen and (min-width:1400px) {
+  .background-shape .circle3 {
+    width: 1200px;
+    height: 1200px;
+    top: -600px;
+    right: -600px;
+  }
+}
+.background-shape .circle4 {
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  position: absolute;
+  z-index: -10;
+  top: -175px;
+  right: -175px;
+}
+@media only screen and (min-width:992px) {
+  .background-shape .circle4 {
+    width: 600px;
+    height: 600px;
+    top: -300px;
+    right: -300px;
+  }
+}
+@media only screen and (min-width:1400px) {
+  .background-shape .circle4 {
+    width: 700px;
+    height: 700px;
+    top: -350px;
+    right: -350px;
+  }
+}
+
+.welcome-area {
+  position: relative;
+  z-index: 10;
+  height: 750px;
+  background-color: #0d6efd;
+  overflow: hidden;
+}
+@media only screen and (min-width:768px) {
+  .welcome-area {
+    height: 500px;
+  }
+}
+@media only screen and (min-width:992px) {
+  .welcome-area {
+    height: 660px;
+  }
+}
+@media only screen and (min-width:1200px) {
+  .welcome-area {
+    height: 750px;
+  }
+}
+@media only screen and (min-width:1400px) {
+  .welcome-area {
+    height: 800px;
+  }
+}
+.welcome-area .background-image {
+  position: absolute !important;
+  width: 100%;
+  height: auto;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.welcome-area .hero-background-shape {
+  position: absolute !important;
+  top: -1px;
+  right: -1px;
+  z-index: -1;
+}
+.welcome-area .welcome-content {
+  margin-top: 50px;
+}
+@media only screen and (min-width:992px) {
+  .welcome-area .welcome-content {
+    margin-top: 80px;
+  }
+}
+.welcome-area .welcome-content ul {
+  padding-left: 0;
+}
+.welcome-area .welcome-content ul li {
+  position: relative;
+  list-style: none;
+  padding-right: 21px;
+  color: #ffffff;
+  font-weight: 700;
+}
+.welcome-area .welcome-content ul li::after {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  right: 0;
+  content: "\f309";
+  font-family: bootstrap-icons !important;
+  z-index: 1;
+  font-size: 20px;
+}
+.welcome-area .welcome-content ul li:last-child::after {
+  display: none;
+}
+.welcome-area .welcome-content h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -1px;
+}
+@media only screen and (min-width:992px) {
+  .welcome-area .welcome-content h2 {
+    font-size: 2.75rem;
+  }
+}
+@media only screen and (min-width:1200px) {
+  .welcome-area .welcome-content h2 {
+    font-size: 3.75rem;
+    margin-bottom: 1.5rem;
+  }
+}
+.welcome-area .welcome-content p {
+  font-size: 1rem;
+  color: #ffffff;
+}
+@media only screen and (min-width:992px) {
+  .welcome-area .welcome-content p {
+    font-size: 1.25rem;
+  }
+}
+@media only screen and (min-width:768px) {
+  .welcome-area .welcome-thumb {
+    margin-top: 50px;
+  }
+}
+@media only screen and (min-width:992px) {
+  .welcome-area .welcome-thumb {
+    margin-top: 80px;
+  }
+}
+.welcome-area.hero2 .hero2-big-circle {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  border: 3rem solid #f1f4fd;
+  position: absolute !important;
+  left: -120px;
+  top: 54%;
+  z-index: -1;
+}
+.welcome-area.hero2 .welcome-content h2 {
+  font-size: 2rem;
+  color: #1f0757;
+}
+@media only screen and (min-width:992px) {
+  .welcome-area.hero2 .welcome-content h2 {
+    font-size: 2.75rem;
+  }
+}
+@media only screen and (min-width:1200px) {
+  .welcome-area.hero2 .welcome-content h2 {
+    font-size: 3.25rem;
+  }
+}
+.welcome-area.hero2 .welcome-content p {
+  color: #8480ae;
+}
+.welcome-area.hero2 .background-animation .item1::after {
+  color: rgba(12, 82, 255, 0.26);
+}
+.welcome-area.hero2 .background-animation .item4::after {
+  border: 4px solid rgba(12, 82, 255, 0.13);
+}
+.welcome-area.hero2 .background-animation .item5::after {
+  background-color: rgba(12, 82, 255, 0.11);
+}
+.welcome-area.hero3 .welcome3-slide-item {
+  width: 100%;
+  height: 750px;
+}
+@media only screen and (min-width:768px) {
+  .welcome-area.hero3 .welcome3-slide-item {
+    height: 500px;
+  }
+}
+@media only screen and (min-width:992px) {
+  .welcome-area.hero3 .welcome3-slide-item {
+    height: 660px;
+  }
+}
+@media only screen and (min-width:1200px) {
+  .welcome-area.hero3 .welcome3-slide-item {
+    height: 750px;
+  }
+}
+@media only screen and (min-width:1400px) {
+  .welcome-area.hero3 .welcome3-slide-item {
+    height: 800px;
+  }
+}
+.welcome-area.hero3 .welcome-content h2 {
+  font-size: 1.75rem;
+}
+@media only screen and (min-width:992px) {
+  .welcome-area.hero3 .welcome-content h2 {
+    font-size: 2.125rem;
+  }
+}
+@media only screen and (min-width:1200px) {
+  .welcome-area.hero3 .welcome-content h2 {
+    font-size: 3rem;
+  }
+}
+.welcome-area.hero4 {
+  background-color: #ffffff;
+}
+.welcome-area.hero4 .hero4-bg-shape {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  z-index: -10;
+}
+.welcome-area.hero4 .hero4-bg-shape2 {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  z-index: -10;
+}
+.welcome-area.hero4 .welcome-content h2 {
+  color: #1f0757;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+@media only screen and (min-width:992px) {
+  .welcome-area.hero4 .welcome-content h2 {
+    font-size: 2.25rem;
+  }
+}
+@media only screen and (min-width:1200px) {
+  .welcome-area.hero4 .welcome-content h2 {
+    font-size: 3rem;
+  }
+}
+.welcome-area.hero4 .welcome-content p {
+  color: #8480ae;
+}
+.welcome-area.hero4 .key-quote {
+  font-size: 14px;
+  padding: 0.5rem 1rem;
+  background-color: #ffc107;
+  display: inline-block;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  color: #1f0757;
+}
+.welcome-area.hero4 .hero-video-card {
+  position: relative;
+  z-index: 1;
+  border: 0;
+  -webkit-box-shadow: 0 16px 48px 12px rgba(12, 82, 255, 0.17);
+          box-shadow: 0 16px 48px 12px rgba(12, 82, 255, 0.17);
+  border-radius: 1rem;
+  background-color: transparent;
+}
+.welcome-area.hero4 .hero-video-card .video-shape {
+  position: absolute;
+  bottom: -35px;
+  left: -70px;
+  z-index: -1;
+  -webkit-animation: slideAnimation linear 12s infinite;
+          animation: slideAnimation linear 12s infinite;
+}
+@media only screen and (min-width:992px) {
+  .welcome-area.hero4 .hero-video-card .video-shape {
+    bottom: -70px;
+  }
+}
+.welcome-area.hero4 .hero4-slide-controls .tns-nav {
+  margin-bottom: 1.5rem;
+  margin-left: 0.5rem;
+  line-height: 1;
+}
+.welcome-area.hero4 .hero4-slide-controls .tns-nav button {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #c2d4f8;
+  border: 0;
+  outline: none;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+}
+.welcome-area.hero4 .hero4-slide-controls .tns-nav button.tns-nav-active {
+  background-color: #0d6efd;
+}
+
+@-webkit-keyframes slideAnimation {
+  50% {
+    bottom: 0;
+  }
+}
+@keyframes slideAnimation {
+  50% {
+    bottom: 0;
+  }
+}
+.welcome-area.hero5 {
+  position: relative;
+}
+
+.welcome-area.hero5 .welcome-content h2 span {
+  position: relative;
+}
+
+.welcome-area.hero5 .welcome-content h2 span::after {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  content: "";
+  background-image: url("img/core-img/text-horn.png");
+  width: 32px;
+  height: 30px;
+  -webkit-transform: rotate(15deg);
+  transform: rotate(15deg);
+  right: auto;
+  background-size: cover;
+}
+
+.welcome-area.hero5 .welcome-thumb {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  border-radius: 2rem;
+  -webkit-transform: rotate(8deg);
+  transform: rotate(8deg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media only screen and (min-width: 992px) {
+  .welcome-area.hero5 .welcome-content h2 span::after {
+    width: 42px;
+    height: 40px;
+  }
+  .welcome-area.hero5 .welcome-thumb {
+    width: 300px;
+    height: 300px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .welcome-area.hero5 .welcome-content h2 span::after {
+    top: 8px;
+  }
+  .welcome-area.hero5 .welcome-thumb {
+    width: 350px;
+    height: 350px;
+  }
+}
+.welcome-area.hero5 .welcome-thumb span.first-badge {
+  position: absolute;
+  top: 4px;
+  -webkit-transform: rotate(-12deg);
+  transform: rotate(-12deg);
+  left: -4px;
+}
+
+.welcome-area.hero5 .welcome-thumb span.second-badge {
+  position: absolute;
+  bottom: 1rem;
+  -webkit-transform: rotate(-8deg);
+  transform: rotate(-8deg);
+  right: 10px;
+}
+
+.welcome-area.hero5 .big-letters {
+  position: absolute;
+  z-index: -1;
+  width: 50%;
+  height: 80%;
+  bottom: 10%;
+  right: -10%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+
+.welcome-area.hero5 .big-letters span {
+  color: rgba(255, 255, 255, 0.08);
+  font-size: 6vw;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: block;
+}
+
+.welcome-area.hero6,
+.welcome-area.hero6 .welcome4-slide-item {
+  height: 450px;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media only screen and (min-width: 768px) {
+  .welcome-area.hero6,
+  .welcome-area.hero6 .welcome4-slide-item {
+    height: 500px;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .welcome-area.hero6,
+  .welcome-area.hero6 .welcome4-slide-item {
+    height: 630px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .welcome-area.hero6,
+  .welcome-area.hero6 .welcome4-slide-item {
+    height: 750px;
+  }
+}
+.welcome-area.hero6 .welcome-content {
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 1rem;
+  padding-bottom: 2.5rem;
+  padding-top: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.welcome-area.hero6 .welcome-content h2 {
+  color: #1f0757;
+}
+
+.welcome-area.hero6 .tns-controls button {
+  position: absolute;
+  width: 40px;
+  height: 120px;
+  left: 0;
+  top: 50%;
+  margin-top: -60px;
+  background-color: #1f0757;
+  opacity: 0.15;
+  border: 0;
+  z-index: 100;
+  border-radius: 0 0.375rem 0.375rem 0;
+  color: #ffffff;
+  -webkit-transition-duration: 350ms;
+          transition-duration: 350ms;
+}
+
+.welcome-area.hero6 .tns-controls button:hover {
+  opacity: 1;
+}
+
+.welcome-area.hero6 .tns-nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  bottom: 3rem;
+  width: 100%;
+  z-index: 100;
+}
+
+.welcome-area.hero6 .tns-nav button {
+  width: 80px;
+  margin: 0 0.5rem;
+  height: 5px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: 0;
+  -webkit-transition-duration: 350ms;
+          transition-duration: 350ms;
+  opacity: 0.5;
+}
+
+.welcome-area.hero6 .tns-nav button.tns-nav-active {
+  background-color: #1f0757;
+  opacity: 1;
+}
+
+.welcome-area.hero6 .tns-controls button[data-controls=next] {
+  left: auto;
+  right: 0;
+  border-radius: 0.375rem 0 0 0.375rem;
+}

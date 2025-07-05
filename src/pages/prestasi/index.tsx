@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import PrestasiCard from './PrestasiCard';
 
 interface PrestasiItem {
@@ -71,8 +72,8 @@ const Prestasi: React.FC = () => {
             <p className="text-gray-400">Prestasi akan muncul di sini</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {prestasi.map((item: PrestasiItem) => (
+          <div className="grid grid-cols-1 gap-8">
+            {prestasi.slice(0, 5).map((item: PrestasiItem) => (
               <PrestasiCard
                 key={item._id}
                 _id={item._id}
@@ -90,15 +91,14 @@ const Prestasi: React.FC = () => {
       </div>
 
       {/* Call to Action */}
-      <div className="bg-gray-100 py-12">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold mb-4">Bangga dengan Prestasi</h2>
-          <p className="text-gray-600 mb-6">
-            Mari bergabung dan raih prestasi bersama kami
-          </p>
-          <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200">
-            Daftar Sekarang
-          </button>
+      <div className="bg-white py-12">
+        <div className="max-w-4xl mx-auto px-2 text-center">
+          <Link
+            to="/allprestasi"
+            className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200 inline-block"
+          >
+            Lihat semua Prestasi
+          </Link>
         </div>
       </div>
     </div>

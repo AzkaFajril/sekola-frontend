@@ -53,7 +53,7 @@ const News: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-blue-600 text-white py-16">
+      <div className=" text-black py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">Berita Sekolah</h1>
           <p className="text-xl opacity-90">
@@ -78,9 +78,9 @@ const News: React.FC = () => {
                     <img 
                       src={item.image} 
                       alt={item.title} 
-                      className="w-full h-48 object-cover"
+                      className="w-full h-48 object-cover transition-transform duration-300 ease-in-out hover:scale-110"
                     />
-                    <div className="absolute top-0 left-0 bg-blue-600 text-white px-3 py-1 text-sm">
+                    <div className="absolute top-0 left-0 b text-white px-3 py-1 text-sm">
                       Berita
                     </div>
                   </div>
@@ -126,15 +126,12 @@ const News: React.FC = () => {
       {/* Call to Action */}
       <div className="bg-gray-100 py-12">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold mb-4">Tetap Terhubung</h2>
-          <p className="text-gray-600 mb-6">
-            Dapatkan informasi terbaru seputar kegiatan sekolah kami
-          </p>
+          
           <Link 
-            to="/contact"
+            to="/all-news"
             className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200"
           >
-            Hubungi Kami
+            Liat Semua
           </Link>
         </div>
       </div>

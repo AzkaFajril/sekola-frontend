@@ -33,6 +33,7 @@ const AdminPrestasi: React.FC = () => {
     imageType: 'url'
   });
   const [editId, setEditId] = useState<string | null>(null);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -100,11 +101,18 @@ const AdminPrestasi: React.FC = () => {
       }
       setForm({ title: '', description: '', content: '', image: '', imageFile: null, imageType: 'url' });
       setEditId(null);
+      setSelectedIds([]);
       fetchPrestasi();
     } catch (error) {
       setError('Terjadi kesalahan');
     }
     setLoading(false);
+  };
+
+  const handleSelect = (id: string) => {
+    setSelectedIds(prev =>
+      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+    );
   };
 
   const handleEdit = (item: PrestasiItem): void => {
@@ -119,13 +127,17 @@ const AdminPrestasi: React.FC = () => {
     setEditId(item._id);
   };
 
-  const handleDelete = async (id: string): Promise<void> => {
-    if (!window.confirm('Hapus prestasi ini?')) return;
+  const handleDelete = async (): Promise<void> => {
+    if (selectedIds.length === 0) return;
+    if (!window.confirm('Hapus prestasi terpilih?')) return;
     try {
-      await fetch(`${API}/${id}`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      for (const id of selectedIds) {
+        await fetch(`${API}/${id}`, {
+          method: 'DELETE',
+          headers: { Authorization: `Bearer ${token}` }
+        });
+      }
+      setSelectedIds([]);
       fetchPrestasi();
     } catch (error) {
       console.error('Error deleting prestasi:', error);
@@ -153,14 +165,6 @@ const AdminPrestasi: React.FC = () => {
               name="title"
               placeholder="Judul Prestasi"
               value={form.title}
-              onChange={handleChange}
-              required
-              className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-            <input
-              name="description"
-              placeholder="Deskripsi singkat"
-              value={form.description}
               onChange={handleChange}
               required
               className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -206,11 +210,18 @@ const AdminPrestasi: React.FC = () => {
             />
           )}
           <textarea
+            name="description"
+            placeholder="Deskripsi (opsional)"
+            value={form.description}
+            onChange={handleChange}
+            rows={2}
+            className="border rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          <textarea
             name="content"
-            placeholder="Konten Prestasi"
+            placeholder="Konten (opsional)"
             value={form.content}
             onChange={handleChange}
-            required
             rows={4}
             className="border rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
@@ -240,39 +251,63 @@ const AdminPrestasi: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {prestasi.map((item: PrestasiItem) => (
-            <div key={item._id} className="bg-white rounded-xl shadow p-6 flex flex-col space-y-2">
+            <div
+              key={item._id}
+              className={`bg-white rounded-xl shadow p-6 flex flex-col space-y-2 border-2 cursor-pointer ${
+                selectedIds.includes(item._id) ? "border-blue-500" : "border-transparent"
+              }`}
+              onClick={() => handleSelect(item._id)}
+            >
               <div className="flex items-center justify-between">
                 <b className="text-lg text-slate-700">{item.title}</b>
-                <div className="flex space-x-2">
-                  <button
-                    onClick={() => handleEdit(item)}
-                    className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded text-xs"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(item._id)}
-                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs"
-                  >
-                    Hapus
-                  </button>
-                </div>
+                <input
+                  type="checkbox"
+                  checked={selectedIds.includes(item._id)}
+                  onChange={e => {
+                    e.stopPropagation();
+                    handleSelect(item._id);
+                  }}
+                  className="accent-blue-600"
+                />
               </div>
               <div className="text-gray-500 text-sm mb-1">{item.description}</div>
               {item.image && (
                 <img src={item.image} alt={item.title} className="w-full h-32 object-cover rounded mb-2" />
               )}
               <div className="text-sm">{item.content}</div>
-              <div className="text-xs text-gray-400 mt-2">
-                {item.createdAt && (
-                  <>
-                    Dibuat: {formatDateTime(item.createdAt)}
-                  </>
-                )}
+              <div className="flex justify-between items-center mt-2">
+                <div className="text-xs text-gray-400">
+                  {item.createdAt && <>Dibuat: {formatDateTime(item.createdAt)}</>}
+                </div>
+                <button
+                  onClick={e => {
+                    e.stopPropagation();
+                    handleEdit(item);
+                  }}
+                  className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded text-xs ml-2"
+                >
+                  Edit
+                </button>
               </div>
             </div>
           ))}
         </div>
+
+        {/* Tombol Hapus di bawah daftar */}
+        <div className="flex justify-center gap-4 mt-8">
+          <button
+            onClick={handleDelete}
+            disabled={selectedIds.length === 0}
+            className={`px-6 py-2 rounded font-semibold transition ${
+              selectedIds.length > 0
+                ? "bg-red-500 hover:bg-red-600 text-white"
+                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+            }`}
+          >
+            Hapus Terpilih
+          </button>
+        </div>
+        {error && <div className="text-red-600 text-center mt-4">{error}</div>}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import NewsCard from './Newcard';
+import Navbar from '../../components/navbar';
 
 interface NewsItem {
   _id: string;
@@ -52,7 +53,9 @@ const AllNews: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="relative min-h-screen bg-blue-900 pt-20 ">
+    <Navbar/>
+    <div className="min-h-screen bg-gray-50 py-25">
       <div className="max-w-6xl mx-auto px-4">
         <h1 className="text-3xl font-bold text-center mb-8">Semua Berita</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -77,6 +80,7 @@ const AllNews: React.FC = () => {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 };

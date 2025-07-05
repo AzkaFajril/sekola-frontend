@@ -1,0 +1,12 @@
+root {
+    text-decoration: none;
+}
+
+a, .no-underline {
+  text-decoration: none !important;
+}
+
+a {
+    text-decoration: none;
+    list-style: none;
+  }

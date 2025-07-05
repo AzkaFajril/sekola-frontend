@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import { Link } from 'react-router-dom';
 
 const API = 'http://localhost:5000/api/news';
@@ -34,6 +33,7 @@ const Berita: React.FC = () => {
     imageType: 'url'
   });
   const [editId, setEditId] = useState<string | null>(null);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -65,7 +65,7 @@ const Berita: React.FC = () => {
     e.preventDefault();
     setError('');
     setLoading(true);
-    
+
     if (!token) {
       setError('Token tidak ditemukan. Silakan login kembali.');
       setLoading(false);
@@ -85,7 +85,6 @@ const Berita: React.FC = () => {
         formData.append('content', form.content);
         formData.append('image', form.imageFile);
         body = formData;
-        // Jangan set Content-Type untuk FormData
       } else {
         body = JSON.stringify({
           title: form.title,
@@ -106,21 +105,27 @@ const Berita: React.FC = () => {
         const data = await res.json();
         if (res.status === 401) {
           setError('Token tidak valid. Silakan login kembali.');
-          // Jangan hapus token di sini, biarkan user logout manual
         } else {
           setError(data.message || 'Gagal menyimpan');
         }
         setLoading(false);
         return;
       }
-      
+
       setForm({ title: '', description: '', content: '', image: '', imageFile: null, imageType: 'url' });
       setEditId(null);
+      setSelectedIds([]);
       fetchNews();
     } catch (error) {
       setError('Terjadi kesalahan');
     }
     setLoading(false);
+  };
+
+  const handleSelect = (id: string) => {
+    setSelectedIds(prev =>
+      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+    );
   };
 
   const handleEdit = (item: NewsItem): void => {
@@ -135,28 +140,23 @@ const Berita: React.FC = () => {
     setEditId(item._id);
   };
 
-  const handleDelete = async (id: string): Promise<void> => {
-    if (!window.confirm('Hapus berita ini?')) return;
-    
+  const handleDelete = async (): Promise<void> => {
+    if (selectedIds.length === 0) return;
+    if (!window.confirm('Hapus berita terpilih?')) return;
+
     if (!token) {
       setError('Token tidak ditemukan. Silakan login kembali.');
       return;
     }
 
     try {
-      const res = await fetch(`${API}/${id}`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      
-      if (!res.ok) {
-        if (res.status === 401) {
-          setError('Token tidak valid. Silakan login kembali.');
-          // Jangan hapus token di sini
-        }
-        return;
+      for (const id of selectedIds) {
+        await fetch(`${API}/${id}`, {
+          method: 'DELETE',
+          headers: { Authorization: `Bearer ${token}` }
+        });
       }
-      
+      setSelectedIds([]);
       fetchNews();
     } catch (error) {
       console.error('Error deleting news:', error);
@@ -172,21 +172,14 @@ const Berita: React.FC = () => {
           className="bg-white rounded-xl shadow-md p-8 mb-10 space-y-4"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input
+            <textarea
               name="title"
               placeholder="Judul"
               value={form.title}
               onChange={handleChange}
+              rows={2}
               required
-              className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-            <input
-              name="description"
-              placeholder="Deskripsi singkat"
-              value={form.description}
-              onChange={handleChange}
-              required
-              className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 w-96"
             />
           </div>
           <div className="flex items-center space-x-4">
@@ -229,14 +222,14 @@ const Berita: React.FC = () => {
             />
           )}
           <textarea
-            name="content"
-            placeholder="Konten"
-            value={form.content}
+            name="description"
+            placeholder="Deskripsi (opsional)"
+            value={form.description}
             onChange={handleChange}
-            required
-            rows={4}
+            rows={2}
             className="border rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
+        
           <div className="flex space-x-2">
             <button
               type="submit"
@@ -263,37 +256,65 @@ const Berita: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {news.map((item: NewsItem) => (
-            <div key={item._id} className="bg-white rounded-xl shadow p-6 flex flex-col space-y-2">
+            <div
+              key={item._id}
+              className={`bg-white rounded-xl shadow p-6 flex flex-col space-y-2 border-2 cursor-pointer ${
+                selectedIds.includes(item._id) ? "border-blue-500" : "border-transparent"
+              }`}
+              onClick={() => handleSelect(item._id)}
+            >
               <div className="flex items-center justify-between">
                 <b className="text-lg text-slate-700">{item.title}</b>
-                <div className="flex space-x-2">
-                  <button
-                    onClick={() => handleEdit(item)}
-                    className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded text-xs"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(item._id)}
-                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs"
-                  >
-                    Hapus
-                  </button>
-                </div>
+                <input
+                  type="checkbox"
+                  checked={selectedIds.includes(item._id)}
+                  onChange={e => {
+                    e.stopPropagation();
+                    handleSelect(item._id);
+                  }}
+                  className="accent-blue-600"
+                />
               </div>
               <div className="text-gray-500 text-sm mb-1">{item.description}</div>
               {item.image && (
                 <img src={item.image} alt={item.title} className="w-full h-32 object-cover rounded mb-2" />
               )}
-              <Link
-                to={`/news/${item._id}`}
-                className="text-blue-600 hover:underline text-sm"
-              >
-                Lihat Detail
-              </Link>
+              <div className="flex justify-between items-center">
+                <Link
+                  to={`/news/${item._id}`}
+                  className="text-blue-600 hover:underline text-sm"
+                  onClick={e => e.stopPropagation()}
+                >
+                  Lihat Detail
+                </Link>
+                <button
+                  onClick={e => {
+                    e.stopPropagation();
+                    handleEdit(item);
+                  }}
+                  className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded text-xs ml-2"
+                >
+                  Edit
+                </button>
+              </div>
             </div>
           ))}
         </div>
+
+        <div className="flex justify-center gap-4 mt-8">
+          <button
+            onClick={handleDelete}
+            disabled={selectedIds.length === 0}
+            className={`px-6 py-2 rounded font-semibold transition ${
+              selectedIds.length > 0
+                ? "bg-red-500 hover:bg-red-600 text-white"
+                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+            }`}
+          >
+            Hapus Terpilih
+          </button>
+        </div>
+        {error && <div className="text-red-600 text-center mt-4">{error}</div>}
       </div>
     </div>
   );

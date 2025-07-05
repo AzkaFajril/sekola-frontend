@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import Berita from "./News";
 import AdminPrestasi from "./prestasi";
+import BannerAdmin from "./baner";
+import AdminStaffGuru from "./GURU";
 
     
 const menuItems = [
   { key: "home", label: "/" },
   { key: "news", label: "News Edit" },
   { key: "prestasi", label: "Prestasi Edit" },
-  { key: "kurikulum", label: "Kurikulum" },
+  { key: "Banner", label: "Banner" },
+  { key: "GuruStaff", label: "GuruStaff" },
 ];
 
 const AdminDashboard: React.FC = () => {
@@ -69,11 +72,20 @@ const AdminDashboard: React.FC = () => {
             <p>Form edit prestasi...</p>
           </div>
         )}
-        {selectedMenu === "kurikulum" && (
+        {selectedMenu === "Banner" && (
           <div>
-            <h2 className="text-2xl font-bold mb-4">Kurikulum</h2>
+            <h2 className="text-2xl font-bold mb-4">Banner</h2>
+            <BannerAdmin/>
             {/* Konten kurikulum di sini */}
-            <p>Data kurikulum...</p>
+            <p>Data Banner...</p>
+          </div>
+        )}
+        {selectedMenu === "GuruStaff" && (
+          <div>
+            <h2 className="text-2xl font-bold mb-4">GuruStaff</h2>
+            <AdminStaffGuru/>
+            {/* Konten kurikulum di sini */}
+            <p>Data GuruStaff...</p>
           </div>
         )}
       </main>

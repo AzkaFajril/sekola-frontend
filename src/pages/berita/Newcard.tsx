@@ -32,22 +32,17 @@ const NewCard: React.FC<NewCard> = ({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+    <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col h-full">
       {image && (
-        <div className="relative">
-          <img 
-            src={image} 
-            alt={title} 
-            className="w-full h-48 object-cover"
-          />
-        
-        </div>
+        <img
+          src={image}
+          alt={title}
+          className="w-full h-40 sm:h-48 object-cover"
+        />
       )}
-      <div className="p-6">
-        <h3 className="text-xl font-semibold mb-2 text-gray-800">{title}</h3>
-        {description && (
-          <p className="text-gray-600 mb-4">{description}</p>
-        )}
+      <div className="p-4 flex flex-col flex-1">
+        <h3 className="text-lg sm:text-xl font-bold mb-2">{title}</h3>
+        {description && <p className="text-gray-600 text-sm sm:text-base mb-2">{description}</p>}
         <div className="flex justify-between items-center">
           <Link 
             to={`/News/${_id}`}
