@@ -1,63 +1,96 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import NewsCard from './Newcars';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-const AllNews = () => {
-  const [news, setNews] = useState([]);
-  const scrollRef = useRef(null);
-  const navigate = useNavigate();
+interface NewsItem {
+  _id: string;
+  title: string;
+  description?: string;
+  content: string;
+  image?: string;
+  author?: string;
+  date?: string;
+}
+
+const NewsDetail: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const [news, setNews] = useState<NewsItem | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>('');
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/news')
-      .then(res => res.json())
-      .then(data => setNews(data));
-  }, []);
+    if (!id) return;
 
-  const scrollLeft = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: -360, behavior: 'smooth' });
-    }
-  };
+    fetch(`http://localhost:5000/api/news/${id}`)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Berita tidak ditemukan');
+        }
+        return res.json();
+      })
+      .then((data: NewsItem) => {
+        setNews(data);
+        setLoading(false);
+      })
+      .catch((error: Error) => {
+        setError(error.message);
+        setLoading(false);
+      });
+  }, [id]);
 
-  const scrollRight = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: 360, behavior: 'smooth' });
-    }
-  };
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-xl">Memuat...</div>
+      </div>
+    );
+  }
+
+  if (error || !news) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-xl text-red-600">{error || 'Berita tidak ditemukan'}</div>
+      </div>
+    );
+  }
 
   return (
-    <div className="relative py-8 px-2">
-      <h1 className="text-3xl font-bold text-center mb-8">Berita</h1>
-      {/* Tombol geser kiri */}
-      
-      <div
-        className="grid grid-cols-1 md:grid-cols-3 gap-6 px-14 pb-4 scroll-smooth"
-        ref={scrollRef}
-      >
-        {news.slice(0, 6).map(item => (
-          <NewsCard
-            key={item._id}
-            date={item.date}
-            image={item.image}
-            title={item.title}
-            description={item.description || item.content}
-            author={item.author}
-          />
-        ))}
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-4xl mx-auto px-4">
+        <article className="bg-white rounded-lg shadow-md overflow-hidden">
+          {news.image && (
+            <img 
+              src={news.image} 
+              alt={news.title} 
+              className="w-full h-96 object-cover"
+            />
+          )}
+          <div className="p-8">
+            <h1 className="text-3xl font-bold mb-4 text-gray-800">{news.title}</h1>
+            {news.description && (
+              <p className="text-xl text-gray-600 mb-6">{news.description}</p>
+            )}
+            <div className="prose max-w-none">
+              <p className="text-gray-700 leading-relaxed">{news.content}</p>
+            </div>
+            <div className="mt-8 pt-6 border-t border-gray-200">
+              <div className="flex justify-between items-center text-sm text-gray-500">
+                {news.author && <span>Oleh: {news.author}</span>}
+                {news.date && (
+                  <span>
+                    {new Date(news.date).toLocaleDateString('id-ID', {
+                      day: '2-digit',
+                      month: 'long',
+                      year: 'numeric'
+                    })}
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
-      {/* Tombol View All */}
-      {news.length > 6 && (
-        <div className="flex justify-center mt-8">
-          <button
-            onClick={() => navigate('/all-news')}
-            className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-lg shadow transition"
-          >
-            View All
-          </button>
-        </div>
-      )}
     </div>
   );
 };
 
-export default AllNews; 
+export default NewsDetail;

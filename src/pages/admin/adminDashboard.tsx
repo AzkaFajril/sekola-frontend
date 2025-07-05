@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Berita from "./News";
-import Prestasi from "../prestasi";
 import AdminPrestasi from "./prestasi";
 
     

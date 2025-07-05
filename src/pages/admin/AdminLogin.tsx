@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 
+interface AdminLoginProps {
+  onLogin: () => void;
+}
 
-const AdminLogin = ({ onLogin }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string>('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
     try {
@@ -31,8 +34,20 @@ const AdminLogin = ({ onLogin }) => {
     <form onSubmit={handleSubmit}>
       <h2>Login Admin</h2>
       {error && <div style={{color:'red'}}>{error}</div>}
-      <input type="text" placeholder="Username" value={username} onChange={e=>setUsername(e.target.value)} required />
-      <input type="password" placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} required />
+      <input
+        type="text"
+        placeholder="Username"
+        value={username}
+        onChange={e => setUsername(e.target.value)}
+        required
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+        required
+      />
       <button type="submit">Login</button>
     </form>
   );

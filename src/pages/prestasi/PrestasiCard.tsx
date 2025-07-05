@@ -1,59 +1,75 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface PrestasiCardProps {
+  _id: string;
   title: string;
-  description: string;
-  content?: string;
-  image: string;
-  date?: string;
+  description?: string;
+  content: string;
+  image?: string;
   author?: string;
-  level?: string;
-  onClick?: () => void;
-}
-
-function formatDateTime(dateString: string) {
-  if (!dateString) return '';
-  const date = new Date(dateString);
-  return date.toLocaleDateString('id-ID', {
-    day: '2-digit', month: 'long', year: 'numeric'
-  }) + ' ' + date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  date?: string;
+  createdAt?: string;
 }
 
 const PrestasiCard: React.FC<PrestasiCardProps> = ({
+  _id,
   title,
   description,
-  content,
   image,
-  date,
   author,
-  level,
-  onClick
-}) => (
-  <div
-    className="flex bg-white rounded-xl shadow p-4 cursor-pointer hover:ring-2 hover:ring-blue-400 transition"
-    onClick={onClick}
-  >
-    <div className="w-1/3 flex items-center justify-center">
-      <img
-        src={image}
-        alt={title}
-        className="rounded-xl object-cover w-full h-40"
-        style={{ background: '#222' }}
-      />
-    </div>
-    <div className="w-2/3 pl-6 flex flex-col justify-center">
-      <b className="text-lg text-slate-700 mb-2">{title}</b>
-      <div className="text-gray-500 text-sm mb-1">{formatDateTime(date)}</div>
-      <div className="mb-1">{description}</div>
-      <div className="text-xs text-gray-600">
-        {author && <span>👤 {author}</span>}
-        {level && <span className="ml-4">🏆 {level}</span>}
+  date,
+  createdAt,
+}) => {
+  const formatDate = (dateString: string): string => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('id-ID', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    });
+  };
+
+  return (
+    <div className="flex bg-white rounded-lg shadow-md overflow-hidden mb-6">
+      {/* Bagian Gambar */}
+      <div className="w-1/3 bg-gray-200 flex items-center justify-center">
+        {image ? (
+          <img
+            src={image}
+            alt={title}
+            className="object-cover w-full h-full"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-gray-400">
+            Tidak ada gambar
+          </div>
+        )}
       </div>
-      {content && (
-        <div className="mt-2 text-sm text-slate-700">{content}</div>
-      )}
+      {/* Bagian Konten */}
+      <div className="w-2/3 p-6 flex flex-col justify-between">
+        <div>
+          <h3 className="text-lg font-bold text-blue-900 mb-2">{title}</h3>
+          {description && (
+            <p className="text-gray-700 mb-2">{description}</p>
+          )}
+        </div>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mt-4">
+          <div className="text-sm text-gray-500">
+            {author && <>Oleh: {author} | </>}
+            {formatDate(date || createdAt || '')}
+          </div>
+          <Link
+            to={`/prestasi/${_id}`}
+            className="mt-2 md:mt-0 text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+          >
+            Lihat Detail →
+          </Link>
+        </div>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default PrestasiCard;

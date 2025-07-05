@@ -1,10 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const API = 'http://localhost:5000/api/prestasi';
 
-const AdminPrestasi = () => {
-  const [prestasi, setPrestasi] = useState([]);
-  const [form, setForm] = useState({
+interface PrestasiItem {
+  _id: string;
+  title: string;
+  description?: string;
+  content: string;
+  image?: string;
+  author?: string;
+  date?: string;
+  createdAt?: string;
+}
+
+interface PrestasiFormData {
+  title: string;
+  description: string;
+  content: string;
+  image: string;
+  imageFile: File | null;
+  imageType: 'url' | 'file';
+}
+
+const AdminPrestasi: React.FC = () => {
+  const [prestasi, setPrestasi] = useState<PrestasiItem[]>([]);
+  const [form, setForm] = useState<PrestasiFormData>({
     title: '',
     description: '',
     content: '',
@@ -12,47 +32,51 @@ const AdminPrestasi = () => {
     imageFile: null,
     imageType: 'url'
   });
-  const [editId, setEditId] = useState(null);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [editId, setEditId] = useState<string | null>(null);
+  const [error, setError] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const token = localStorage.getItem('token');
 
-  const fetchPrestasi = () => {
+  const fetchPrestasi = (): void => {
     fetch(API)
       .then(res => res.json())
-      .then(data => setPrestasi(data));
+      .then((data: PrestasiItem[]) => setPrestasi(data))
+      .catch((error: Error) => {
+        console.error('Error fetching prestasi:', error);
+      });
   };
 
   useEffect(() => {
     fetchPrestasi();
   }, []);
 
-  const handleChange = e => {
-    const { name, value, files } = e.target;
-    if (name === 'imageFile') {
-      setForm({ ...form, imageFile: files[0], imageType: 'file' });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    const { name, value } = e.target;
+    if (name === 'imageFile' && 'files' in e.target && e.target.files) {
+      setForm({ ...form, imageFile: e.target.files[0], imageType: 'file' });
     } else if (name === 'imageType') {
-      setForm({ ...form, imageType: value });
+      setForm({ ...form, imageType: value as 'url' | 'file' });
     } else {
       setForm({ ...form, [name]: value });
     }
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setError('');
     setLoading(true);
     try {
-      let body;
-      let headers = { Authorization: `Bearer ${token}` };
+      let body: FormData | string;
+      let headers: Record<string, string> = { Authorization: `Bearer ${token}` };
 
       if (form.imageType === 'file' && form.imageFile) {
-        body = new FormData();
-        body.append('title', form.title);
-        body.append('description', form.description);
-        body.append('content', form.content);
-        body.append('image', form.imageFile);
+        const formData = new FormData();
+        formData.append('title', form.title);
+        formData.append('description', form.description);
+        formData.append('content', form.content);
+        formData.append('image', form.imageFile);
+        body = formData;
       } else {
         body = JSON.stringify({
           title: form.title,
@@ -62,7 +86,6 @@ const AdminPrestasi = () => {
         });
         headers['Content-Type'] = 'application/json';
       }
-
       const res = await fetch(editId ? `${API}/${editId}` : API, {
         method: editId ? 'PUT' : 'POST',
         headers,
@@ -78,13 +101,13 @@ const AdminPrestasi = () => {
       setForm({ title: '', description: '', content: '', image: '', imageFile: null, imageType: 'url' });
       setEditId(null);
       fetchPrestasi();
-    } catch {
+    } catch (error) {
       setError('Terjadi kesalahan');
     }
     setLoading(false);
   };
 
-  const handleEdit = item => {
+  const handleEdit = (item: PrestasiItem): void => {
     setForm({
       title: item.title,
       description: item.description || '',
@@ -96,7 +119,7 @@ const AdminPrestasi = () => {
     setEditId(item._id);
   };
 
-  const handleDelete = async id => {
+  const handleDelete = async (id: string): Promise<void> => {
     if (!window.confirm('Hapus prestasi ini?')) return;
     try {
       await fetch(`${API}/${id}`, {
@@ -104,10 +127,12 @@ const AdminPrestasi = () => {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchPrestasi();
-    } catch {}
+    } catch (error) {
+      console.error('Error deleting prestasi:', error);
+    }
   };
 
-  function formatDateTime(dateString: string) {
+  function formatDateTime(dateString: string): string {
     if (!dateString) return '';
     const date = new Date(dateString);
     return date.toLocaleDateString('id-ID', {
@@ -214,7 +239,7 @@ const AdminPrestasi = () => {
         </form>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {prestasi.map(item => (
+          {prestasi.map((item: PrestasiItem) => (
             <div key={item._id} className="bg-white rounded-xl shadow p-6 flex flex-col space-y-2">
               <div className="flex items-center justify-between">
                 <b className="text-lg text-slate-700">{item.title}</b>

@@ -1,11 +1,31 @@
 import React, { useEffect, useState } from 'react';
+
 import { Link } from 'react-router-dom';
 
 const API = 'http://localhost:5000/api/news';
 
-const Berita = () => {
-  const [news, setNews] = useState([]);
-  const [form, setForm] = useState({
+interface NewsItem {
+  _id: string;
+  title: string;
+  description?: string;
+  content: string;
+  image?: string;
+  author?: string;
+  date?: string;
+}
+
+interface NewsFormData {
+  title: string;
+  description: string;
+  content: string;
+  image: string;
+  imageFile: File | null;
+  imageType: 'url' | 'file';
+}
+
+const Berita: React.FC = () => {
+  const [news, setNews] = useState<NewsItem[]>([]);
+  const [form, setForm] = useState<NewsFormData>({
     title: '',
     description: '',
     content: '',
@@ -13,46 +33,59 @@ const Berita = () => {
     imageFile: null,
     imageType: 'url'
   });
-  const [editId, setEditId] = useState(null);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [editId, setEditId] = useState<string | null>(null);
+  const [error, setError] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const token = localStorage.getItem('token');
 
-  const fetchNews = () => {
+  const fetchNews = (): void => {
     fetch(API)
       .then(res => res.json())
-      .then(data => setNews(data));
+      .then((data: NewsItem[]) => setNews(data))
+      .catch((error: Error) => {
+        console.error('Error fetching news:', error);
+      });
   };
 
   useEffect(() => {
     fetchNews();
   }, []);
 
-  const handleChange = e => {
-    const { name, value, files } = e.target;
-    if (name === 'imageFile') {
-      setForm({ ...form, imageFile: files[0], imageType: 'file' });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    const { name, value } = e.target;
+    if (name === 'imageFile' && 'files' in e.target && e.target.files) {
+      setForm({ ...form, imageFile: e.target.files[0], imageType: 'file' });
     } else {
       setForm({ ...form, [name]: value });
     }
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setError('');
     setLoading(true);
+    
+    if (!token) {
+      setError('Token tidak ditemukan. Silakan login kembali.');
+      setLoading(false);
+      return;
+    }
+
     try {
-      let body;
-      let headers = { Authorization: `Bearer ${token}` };
+      let body: FormData | string;
+      let headers: Record<string, string> = { 
+        Authorization: `Bearer ${token}` 
+      };
 
       if (form.imageType === 'file' && form.imageFile) {
-        body = new FormData();
-        body.append('title', form.title);
-        body.append('description', form.description);
-        body.append('content', form.content);
-        body.append('image', form.imageFile);
-        headers = { Authorization: `Bearer ${token}` };
+        const formData = new FormData();
+        formData.append('title', form.title);
+        formData.append('description', form.description);
+        formData.append('content', form.content);
+        formData.append('image', form.imageFile);
+        body = formData;
+        // Jangan set Content-Type untuk FormData
       } else {
         body = JSON.stringify({
           title: form.title,
@@ -71,20 +104,26 @@ const Berita = () => {
 
       if (!res.ok) {
         const data = await res.json();
-        setError(data.message || 'Gagal menyimpan');
+        if (res.status === 401) {
+          setError('Token tidak valid. Silakan login kembali.');
+          // Jangan hapus token di sini, biarkan user logout manual
+        } else {
+          setError(data.message || 'Gagal menyimpan');
+        }
         setLoading(false);
         return;
       }
+      
       setForm({ title: '', description: '', content: '', image: '', imageFile: null, imageType: 'url' });
       setEditId(null);
       fetchNews();
-    } catch {
+    } catch (error) {
       setError('Terjadi kesalahan');
     }
     setLoading(false);
   };
 
-  const handleEdit = item => {
+  const handleEdit = (item: NewsItem): void => {
     setForm({
       title: item.title,
       description: item.description || '',
@@ -96,15 +135,32 @@ const Berita = () => {
     setEditId(item._id);
   };
 
-  const handleDelete = async id => {
+  const handleDelete = async (id: string): Promise<void> => {
     if (!window.confirm('Hapus berita ini?')) return;
+    
+    if (!token) {
+      setError('Token tidak ditemukan. Silakan login kembali.');
+      return;
+    }
+
     try {
-      await fetch(`${API}/${id}`, {
+      const res = await fetch(`${API}/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });
+      
+      if (!res.ok) {
+        if (res.status === 401) {
+          setError('Token tidak valid. Silakan login kembali.');
+          // Jangan hapus token di sini
+        }
+        return;
+      }
+      
       fetchNews();
-    } catch {}
+    } catch (error) {
+      console.error('Error deleting news:', error);
+    }
   };
 
   return (
@@ -206,7 +262,7 @@ const Berita = () => {
         </form>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {news.map(item => (
+          {news.map((item: NewsItem) => (
             <div key={item._id} className="bg-white rounded-xl shadow p-6 flex flex-col space-y-2">
               <div className="flex items-center justify-between">
                 <b className="text-lg text-slate-700">{item.title}</b>
@@ -243,4 +299,4 @@ const Berita = () => {
   );
 };
 
-export default Berita; 
+export default Berita;
