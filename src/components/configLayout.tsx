@@ -6,6 +6,7 @@ import Hero from "./hero";
 
 import KepalaSekolah from "./kepsek";
 import LinkTerkait from "./link-terkait";
+import BannerPpdb from "./ppdb/banner";
 
 
 export default function ConfigLayout(){
@@ -14,6 +15,7 @@ export default function ConfigLayout(){
         <Hero/>
         <LinkTerkait />
         <KepalaSekolah/>
+        <BannerPpdb/>
         <News/>
         <Prestasi/>
         <MapsContact/>

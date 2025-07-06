@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import PrestasiCard from './PrestasiCard';
+import { useEffect, useState } from 'react';
 import Navbar from '../../components/navbar';
+import PrestasiCardall from './allprestasiCard';
 
 interface PrestasiItem {
   _id: string;
@@ -55,32 +55,32 @@ const AllPrestasi: React.FC = () => {
   return (
     <div className="relative min-h-screen bg-blue-900 pt-20 ">
       <Navbar/>
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-6xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-center mb-8">Semua Prestasi</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {prestasi.length === 0 ? (
-            <div className="col-span-full text-center text-gray-500 py-8">
-              Belum ada prestasi.
-            </div>
-          ) : (
-            prestasi.map((item: PrestasiItem) => (
-              <PrestasiCard
-                key={item._id}
-                _id={item._id}
-                title={item.title}
-                description={item.description}
-                content={item.content}
-                image={item.image}
-                author={item.author}
-                date={item.date}
-                createdAt={item.createdAt}
-              />
-            ))
-          )}
+      <div className="min-h-screen bg-gray-50 py-25">
+        <div className="max-w-6xl mx-auto px-4">
+          <h1 className="text-3xl font-bold text-center mb-8">Semua Prestasi</h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {prestasi.length === 0 ? (
+              <div className="col-span-full text-center text-gray-500 py-8">
+                Belum ada prestasi.
+              </div>
+            ) : (
+              prestasi.map((item: PrestasiItem) => (
+                <PrestasiCardall
+                  key={item._id}
+                  _id={item._id}
+                  title={item.title}
+                  description={item.description}
+                  content={item.content}
+                  image={item.image}
+                  author={item.author}
+                  date={item.date}
+                  createdAt={item.createdAt}
+                />
+              ))
+            )}
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };
