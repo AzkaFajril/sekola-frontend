@@ -19,7 +19,7 @@ const Prestasi: React.FC = () => {
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/prestasi')
+    fetch('https://sekola-backend-production.up.railway.app/api/prestasi')
       .then(res => {
         if (!res.ok) {
           throw new Error('Gagal memuat data prestasi');

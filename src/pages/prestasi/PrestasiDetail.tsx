@@ -21,7 +21,7 @@ const PrestasiDetail: React.FC = () => {
   useEffect(() => {
     if (!id) return;
 
-    fetch(`http://localhost:5000/api/prestasi/${id}`)
+    fetch(`https://sekola-backend-production.up.railway.app/api/prestasi/${id}`)
       .then(res => {
         if (!res.ok) {
           throw new Error('Prestasi tidak ditemukan');

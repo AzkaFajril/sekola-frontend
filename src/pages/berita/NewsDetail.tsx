@@ -20,7 +20,7 @@ const NewsDetail: React.FC = () => {
   useEffect(() => {
     if (!id) return;
 
-    fetch(`http://localhost:5000/api/news/${id}`)
+    fetch(`https://sekola-backend-production.up.railway.app/api/news/${id}`)
       .then(res => {
         if (!res.ok) {
           throw new Error('Berita tidak ditemukan');
