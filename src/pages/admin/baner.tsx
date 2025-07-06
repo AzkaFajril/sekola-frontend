@@ -57,13 +57,13 @@ const BannerAdmin: React.FC = () => {
       let res;
       if (editId) {
         // Update banner
-        res = await fetch(`http://localhost:5000/api/banner/${editId}`, {
+        res = await fetch(`https://sekola-backend-production.up.railway.app/api/banner/${editId}`, {
           method: "PUT",
           body: formData,
         });
       } else {
         // Create banner
-        res = await fetch("http://localhost:5000/api/banner", {
+        res = await fetch("https://sekola-backend-production.up.railway.app/api/banner", {
           method: "POST",
           body: formData,
         });
