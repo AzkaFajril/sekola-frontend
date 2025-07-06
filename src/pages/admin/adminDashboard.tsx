@@ -26,7 +26,7 @@ const AdminDashboard: React.FC = () => {
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
       <aside className="w-64 bg-white shadow-md">
-        <div className="p-6 font-bold text-xl border-b">Admin Dashboard</div>
+        <div className="p-6 font-bold text-xl border-b"><a href="/">Admin Dashboard</a></div>
         <nav className="mt-4">
           {menuItems.map((item) => (
             <button

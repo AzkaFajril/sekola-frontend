@@ -39,7 +39,7 @@ const MapsContact: React.FC = () => (
                 </svg>
               </span>
               <span>Email</span>
-              <span className="ml-2 text-gray-700">smasji_teladan@yahoo.com</span>
+              <span className="ml-2 text-gray-700">smapasundan3bdg@yahoo.com</span>
             </div>
             <div className="flex items-center gap-3">
               <span className="bg-blue-100 p-2 rounded-full">
@@ -49,7 +49,8 @@ const MapsContact: React.FC = () => (
                 </svg>
               </span>
               <span>Address</span>
-              <span className="ml-2 text-gray-700">Jl. HOS Cokroaminoto No.10, Pakuncen, Wirobrajan, Kota Yogyakarta 55253</span>
+              <span className="ml-2 text-gray-700">Jl. Kebon Jati No.31 Kb.Jeruk
+              Kec.Andir, Kota Bandung, Jawa Barat.</span>
             </div>
             <div className="flex items-center gap-3">
               <span className="bg-blue-100 p-2 rounded-full">
@@ -58,18 +59,9 @@ const MapsContact: React.FC = () => (
                 </svg>
               </span>
               <span>Phone</span>
-              <span className="ml-2 text-gray-700">0274 - 513454</span>
+              <span className="ml-2 text-gray-700">Call or Chat: +62 813-2026-4411 & +62 813-2026-4422</span>
             </div>
-            <div className="flex items-center gap-3">
-              <span className="bg-blue-100 p-2 rounded-full">
-                <svg className="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <rect width="20" height="14" x="2" y="5" rx="2" />
-                  <path d="M2 7l10 6 10-6" />
-                </svg>
-              </span>
-              <span>Fax</span>
-              <span className="ml-2 text-gray-700">0274 - 542604</span>
-            </div>
+           
           </div>
         </div>
       </div>

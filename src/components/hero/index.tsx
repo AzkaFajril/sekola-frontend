@@ -35,30 +35,31 @@ const Hero = () => {
 
             {/* Background Shapes */}
             <div className="absolute inset-0 pointer-events-none z-0">
-                <div className="absolute top-10 left-10 w-32 h-32 bg-blue-200 rounded-full opacity-50 animate-pulse"></div>
-                <div className="absolute top-40 right-20 w-24 h-24 bg-yellow-200 rounded-full opacity-40 animate-pulse"></div>
-                <div className="absolute bottom-20 left-32 w-20 h-20 bg-pink-200 rounded-full opacity-30 animate-pulse"></div>
-                <div className="absolute bottom-10 right-10 w-28 h-28 bg-green-200 rounded-full opacity-40 animate-pulse"></div>
+                <div className="absolute top-10 left-4 sm:left-10 w-20 h-20 sm:w-32 sm:h-32 bg-blue-200 rounded-full opacity-50 animate-pulse"></div>
+                <div className="absolute top-32 right-4 sm:top-40 sm:right-20 w-16 h-16 sm:w-24 sm:h-24 bg-yellow-200 rounded-full opacity-40 animate-pulse"></div>
+                <div className="absolute bottom-16 left-8 sm:bottom-20 sm:left-32 w-12 h-12 sm:w-20 sm:h-20 bg-pink-200 rounded-full opacity-30 animate-pulse"></div>
+                <div className="absolute bottom-4 right-4 sm:bottom-10 sm:right-10 w-16 h-16 sm:w-28 sm:h-28 bg-green-200 rounded-full opacity-40 animate-pulse"></div>
             </div>
 
-            <div className="relative z-10 max-w-6xl mx-auto px-4">
+            <div className="relative z-10 max-w-6xl mx-auto px-2 sm:px-4">
                 <div className="flex flex-col items-center">
                     {/* Carousel */}
                     <div className="w-full flex justify-center mb-8">
-                        <div className="relative w-full max-w-2xl rounded-xl overflow-hidden shadow-lg">
+                        <div className="relative w-full max-w-xs sm:max-w-lg md:max-w-2xl rounded-xl overflow-hidden shadow-lg">
                             {banners.length > 0 && (
                                 <img
                                     src={banners[activeIndex].imageUrl}
-                                    className="w-full h-[450px] object-cover transition-all duration-700"
+                                    className="w-full h-40 sm:h-64 md:h-[450px] object-cover transition-all duration-700"
                                     alt={`Slide ${activeIndex + 1}`}
                                 />
                             )}
                             {/* Carousel indicators */}
-                            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+                            <div className="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
                                 {banners.map((_, idx) => (
                                     <button
                                         key={idx}
-                                        className={`w-3 h-3 rounded-full border-2 border-white ${activeIndex === idx ? "bg-blue-600" : "bg-gray-300"}`}                                        onClick={() => setActiveIndex(idx)}
+                                        className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full border-2 border-white ${activeIndex === idx ? "bg-blue-600" : "bg-gray-300"}`}
+                                        onClick={() => setActiveIndex(idx)}
                                     />
                                 ))}
                             </div>
@@ -66,26 +67,26 @@ const Hero = () => {
                     </div>
 
                     {/* Feature Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-                        <div className="bg-white rounded-xl shadow-md p-6 flex flex-col items-center">
-                            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 mb-3">
-                                <i className="bi bi-tools text-blue-600 text-2xl"></i>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 w-full">
+                        <div className="bg-white rounded-xl shadow-md p-4 sm:p-6 flex flex-col items-center">
+                            <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-100 mb-2 sm:mb-3">
+                                <i className="bi bi-tools text-blue-600 text-xl sm:text-2xl"></i>
                             </div>
-                            <span className="text-3xl font-bold text-blue-900">+ 62</span>
+                            <span className="text-2xl sm:text-3xl font-bold text-blue-900">+ 62</span>
                             <h6 className="text-gray-600 mt-1">Guru</h6>
                         </div>
-                        <div className="bg-white rounded-xl shadow-md p-6 flex flex-col items-center">
-                            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-green-100 mb-3">
-                                <i className="bi bi-brush text-green-600 text-2xl"></i>
+                        <div className="bg-white rounded-xl shadow-md p-4 sm:p-6 flex flex-col items-center">
+                            <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-100 mb-2 sm:mb-3">
+                                <i className="bi bi-brush text-green-600 text-xl sm:text-2xl"></i>
                             </div>
-                            <span className="text-3xl font-bold text-green-900">+ 20</span>
+                            <span className="text-2xl sm:text-3xl font-bold text-green-900">+ 20</span>
                             <h6 className="text-gray-600 mt-1">Tenaga Pendidik</h6>
                         </div>
-                        <div className="bg-white rounded-xl shadow-md p-6 flex flex-col items-center">
-                            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-cyan-100 mb-3">
-                                <i className="bi bi-bar-chart text-cyan-600 text-2xl"></i>
+                        <div className="bg-white rounded-xl shadow-md p-4 sm:p-6 flex flex-col items-center">
+                            <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-cyan-100 mb-2 sm:mb-3">
+                                <i className="bi bi-bar-chart text-cyan-600 text-xl sm:text-2xl"></i>
                             </div>
-                            <span className="text-3xl font-bold text-cyan-900">+ 814</span>
+                            <span className="text-2xl sm:text-3xl font-bold text-cyan-900">+ 814</span>
                             <h6 className="text-gray-600 mt-1">Siswa</h6>
                         </div>
                     </div>

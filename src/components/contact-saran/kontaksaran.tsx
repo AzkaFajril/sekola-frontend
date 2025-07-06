@@ -49,7 +49,7 @@ const KotakSaran: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto mt-10 bg-white rounded-xl shadow-lg p-8">
       <h2 className="text-xl font-bold mb-4 text-blue-900">Kotak Saran</h2>
-      <form onSubmit={handleSubmit} className="space-y-3">
+      <form onSubmit={handleSubmit} className="space-y-6">
         <input
           type="text"
           name="nama"
