@@ -32,12 +32,12 @@ const NewCard: React.FC<NewCard> = ({
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col h-full">
+    <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col w-80 ">
       {image && (
         <img
           src={image}
           alt={title}
-          className="w-full h-40 sm:h-48 object-cover"
+          className="w-full h-48 object-cover"
         />
       )}
       <div className="p-4 flex flex-col flex-1">

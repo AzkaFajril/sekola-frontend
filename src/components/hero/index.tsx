@@ -49,7 +49,7 @@ const Hero = () => {
                             {banners.length > 0 && (
                                 <img
                                     src={banners[activeIndex].imageUrl}
-                                    className="w-full h-[350px] object-cover transition-all duration-700"
+                                    className="w-full h-[450px] object-cover transition-all duration-700"
                                     alt={`Slide ${activeIndex + 1}`}
                                 />
                             )}
@@ -58,8 +58,7 @@ const Hero = () => {
                                 {banners.map((_, idx) => (
                                     <button
                                         key={idx}
-                                        className={`w-3 h-3 rounded-full ${activeIndex === idx ? "bg-blue-600" : "bg-gray-300"}`}
-                                        onClick={() => setActiveIndex(idx)}
+                                        className={`w-3 h-3 rounded-full border-2 border-white ${activeIndex === idx ? "bg-blue-600" : "bg-gray-300"}`}                                        onClick={() => setActiveIndex(idx)}
                                     />
                                 ))}
                             </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 interface PrestasiItem {
   _id: string;
@@ -67,6 +67,12 @@ const PrestasiDetail: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4">
+    <Link
+      to="/allprestasi"
+      className="inline-block mb-4 px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded transition"
+    >
+      ← Kembali
+    </Link>
         <article className="bg-white rounded-lg shadow-md overflow-hidden">
           {prestasi.image && (
             <img 
@@ -107,6 +113,7 @@ const PrestasiDetail: React.FC = () => {
         </article>
       </div>
     </div>
+
   );
 };
 

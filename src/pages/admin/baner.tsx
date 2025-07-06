@@ -107,7 +107,7 @@ const BannerAdmin: React.FC = () => {
     setLoading(true);
     try {
       for (const id of selectedIds) {
-        await fetch(`http://localhost:5000/api/banner/${id}`, {
+        await fetch(`https://sekola-backend-production.up.railway.app/api/banner/${id}`, {
           method: "DELETE",
         });
       }

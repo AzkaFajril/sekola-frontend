@@ -39,7 +39,7 @@ const PrestasiCard: React.FC<PrestasiCardProps> = ({
           <img
             src={image}
             alt={title}
-            className="object-cover w-full h-50 transition-transform duration-300 ease-in-out hover:scale-110"
+            className="w-full h-56 object-cover rounded"
           />
         ) : (
           <div className="w-full h-36 flex items-center justify-center text-gray-400">
