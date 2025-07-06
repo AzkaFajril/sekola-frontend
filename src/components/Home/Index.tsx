@@ -4,7 +4,7 @@ import axios from "axios";
 import "./css/all-css-libraries.css";
 import "../../index.css";
 
-const Home = () => {
+const Hero = () => {
     const [banners, setBanners] = useState<{ imageUrl: string; title?: string; description?: string }[]>([]);
     const [activeIndex, setActiveIndex] = useState(0);
 
@@ -96,4 +96,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default Hero;
