@@ -13,6 +13,7 @@ import PrestasiDetail from './pages/prestasi/PrestasiDetail';
 import VisiMisi from './components/visidanmisi';
 import RiwayatKepalaSekolah from './components/riwayat-kepala-sekola';
 import GuruStaff from './components/staff-guru';
+import Contact from './components/contact-saran';
 
 
 function App() {
@@ -50,6 +51,8 @@ function App() {
       <Route path="/profile/Visi-Misi" element={<VisiMisi />} />
       <Route path="/profile/Riwayat-Kepala-Sekolah" element={<RiwayatKepalaSekolah />} />
       <Route path="/profile/staff" element={<GuruStaff />} />
+      <Route path="/profile/staff" element={<GuruStaff />} />
+      <Route path="/contact" element={<Contact />} />
 
     </Routes>
   </Router>

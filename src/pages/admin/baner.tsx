@@ -20,7 +20,7 @@ const BannerAdmin: React.FC = () => {
   // Fetch all banners
   const fetchBanners = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/banner");
+      const res = await fetch("https://sekola-backend-production.up.railway.app//api/banner");
       const data = await res.json();
       setBanners(data);
     } catch (err) {

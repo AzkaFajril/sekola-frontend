@@ -11,7 +11,7 @@ const Home = () => {
     useEffect(() => {
         const fetchBanners = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/banner');
+                const response = await axios.get('https://sekola-backend-production.up.railway.app/api/banner');
                 setBanners(response.data);
             } catch (error) {
                 console.error('Error fetching banners:', error);

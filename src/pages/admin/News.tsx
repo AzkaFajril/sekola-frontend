@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const API = 'http://localhost:5000/api/news';
+const API = 'https://sekola-backend-production.up.railway.app/api/news';
 
 interface NewsItem {
   _id: string;

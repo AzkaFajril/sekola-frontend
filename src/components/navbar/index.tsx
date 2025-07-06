@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
         { path: '/all-news', label: 'Berita' },
         { path: '/Allprestasi', label: 'Prestasi' },
         { path: '/ppdb', label: 'PPDB' },
-        { path: '/kontak', label: 'Kontak' },
+        { path: '/contact', label: 'Kontak' },
     ];
 
     const profileItems: NavItem[] = [

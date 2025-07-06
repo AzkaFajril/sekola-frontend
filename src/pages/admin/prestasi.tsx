@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const API = 'http://localhost:5000/api/prestasi';
+const API = 'https://sekola-backend-production.up.railway.app/api/prestasi';
 
 interface PrestasiItem {
   _id: string;

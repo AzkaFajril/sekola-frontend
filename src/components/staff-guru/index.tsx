@@ -20,7 +20,7 @@ const GuruStaff: React.FC = () => {
   useEffect(() => {
     const fetchGuruStaff = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/staff-guru");
+        const res = await fetch("https://sekola-backend-production.up.railway.app/api/staff-guru");
         const data = await res.json();
         setGuruStaffList(data);
       } catch (err) {

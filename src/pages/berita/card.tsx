@@ -19,7 +19,7 @@ const New: React.FC = () => {
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/news')
+    fetch('https://sekola-backend-production.up.railway.app/api/news')
       .then(res => {
         if (!res.ok) {
           throw new Error('Gagal memuat data berita');
