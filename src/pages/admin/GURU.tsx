@@ -7,7 +7,7 @@ type StaffGuru = {
   foto?: string;
 };
 
-const API = "https://sekola-backend-production.up.railway.app//api/staff-guru";
+const API = "https://sekola-backend-production.up.railway.app/api/staff-guru";
 
 const AdminStaffGuru: React.FC = () => {
   const [list, setList] = useState<StaffGuru[]>([]);
