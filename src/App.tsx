@@ -53,7 +53,6 @@ function App() {
       <Route path="/profile/staff" element={<GuruStaff />} />
       <Route path="/profile/staff" element={<GuruStaff />} />
       <Route path="/contact" element={<Contact />} />
-      <Route path="/Login" element={<AdminLogin />} />
       <Route path="/Register" element={<AdminRegister />} />
 
     </Routes>
